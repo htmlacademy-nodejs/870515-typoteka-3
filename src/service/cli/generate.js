@@ -5,6 +5,7 @@ const {
   CATEGORIES,
 } = require(`../../data`);
 const fs = require(`fs`);
+const chalk = require('chalk');
 
 const MAX_COUNT = 1000;
 const DEFAULT_COUNT = 1;
@@ -45,7 +46,7 @@ module.exports = {
         throw new Error(`Can't write data to file...`);
       }
 
-      return console.info(`Operation success. File created.`);
+      return console.info(chalk.green(`Operation success. File created.`));
     });
   }
 };

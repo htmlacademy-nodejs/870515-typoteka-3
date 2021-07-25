@@ -1,9 +1,10 @@
-const message = `
-Программа запускает http-сервер и формирует файл с данными для API.
+const chalk = require('chalk');
+
+const message = `Программа запускает http-сервер и формирует файл с данными для API.
 
     Гайд:
     server <command>
-    
+
     Команды:
     --version:            выводит номер версии
     --help:               печатает этот текст
@@ -12,6 +13,6 @@ const message = `
 module.exports = {
   name: `--help`,
   run() {
-    console.info(message);
+    console.info(chalk.gray(message));
   }
 };
