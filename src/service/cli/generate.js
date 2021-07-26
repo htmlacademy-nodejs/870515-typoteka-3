@@ -31,7 +31,7 @@ const generatePosts = (count) => Array(count).fill({}).map(() => generatePost())
 
 module.exports = {
   name: `--generate`,
-  run(args) {
+  async run(args) {
     const [count] = args;
     const postsCount = Number.parseInt(count, 10) || DEFAULT_COUNT;
 
@@ -41,7 +41,7 @@ module.exports = {
 
     const content = JSON.stringify(generatePosts(postsCount));
 
-    fs.writeFile(FILE_NAME, content, (err) => {
+    await fs.writeFile(FILE_NAME, content, (err) => {
       if (err) {
         throw new Error(`Can't write data to file...`);
       }
