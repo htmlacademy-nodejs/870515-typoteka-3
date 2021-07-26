@@ -14,6 +14,10 @@ const shuffle = (someArray) => {
   return someArray;
 };
 
+const readData = async (filename) => {
+
+}
+
 
 module.exports = {
   getRandomInt,
