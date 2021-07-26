@@ -1,9 +1,7 @@
 const {getRandomInt, shuffle} = require(`../../utils`);
-const {
-  TITLES,
-  ANNOUNCES,
-  CATEGORIES,
-} = require(`../../data`);
+const { TITLES } = require(`../../data//titles`);
+const { CATEGORIES } = require(`../../data/categories`);
+const { SENTENCES } = require(`../../data/sentences`);
 const fs = require(`fs`);
 const chalk = require('chalk');
 
@@ -22,8 +20,8 @@ const getRandomDate = (range) => {
 const generatePost = () => ({
   title: TITLES[getRandomInt(0, TITLES.length)],
   createdDate: getRandomDate(DATE_RANGE),
-  announce: shuffle(ANNOUNCES).slice(0, getRandomInt(1, 5)),
-  fullText: shuffle(ANNOUNCES).slice(0, getRandomInt(1, ANNOUNCES.length)),
+  announce: shuffle(SENTENCES).slice(0, getRandomInt(1, 5)),
+  fullText: shuffle(SENTENCES).slice(0, getRandomInt(1, SENTENCES.length)),
   category: shuffle(CATEGORIES).slice(0, getRandomInt(1, CATEGORIES.length)),
 });
 
