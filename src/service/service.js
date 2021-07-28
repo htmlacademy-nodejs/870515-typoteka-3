@@ -8,6 +8,7 @@ const {
   USER_ARGV_INDEX,
   ExitCode
 } = require(`../constants`);
+const chalk = require('chalk');
 
 
 const userArguments = process.argv.slice(USER_ARGV_INDEX);
@@ -16,7 +17,7 @@ const [userCommand] = userArguments;
 let commandToRun;
 let commandArgs;
 
-if (userArguments.length === 0 || !Cli[userCommand]) {
+if (!userCommand || userArguments.length === 0 || !Cli[userCommand]) {
   commandToRun = DEFAULT_COMMAND;
   commandArgs = [];
 } else {
@@ -25,9 +26,9 @@ if (userArguments.length === 0 || !Cli[userCommand]) {
 }
 
 try {
-  Cli[userCommand].run(commandArgs);
+  Cli[commandToRun].run(commandArgs);
 } catch (error) {
-  fs.writeFileSync(ERROR_LOG_FILENAME, error.message);
-  console.log(`${error.message}\nlog file: ${ERROR_LOG_FILENAME}`);
+  fs.appendFileSync(ERROR_LOG_FILENAME, `${(new Date()).toISOString()}: ${error.stack}\n`);
+  console.log(chalk.red(`${error.message}\nlog file: ${ERROR_LOG_FILENAME}`));
   process.exit(ExitCode.failure);
 }
