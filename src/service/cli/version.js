@@ -3,7 +3,7 @@ const chalk = require('chalk');
 
 module.exports = {
   name: `--version`,
-  run() {
+  async run() {
     const version = packageJsonFile.version;
     console.info(chalk.blue(version));
   }
