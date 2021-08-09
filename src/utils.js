@@ -28,7 +28,10 @@ const getRandomDate = (range) => {
 const readMocks = async (filename) => {
   try {
     const mocks = await fs.promises.readFile(resolve(filename), 'utf8');
-    return mocks.split('\n');
+    return mocks
+      .split('\n')
+      .map((mock) => mock.trim())
+      .filter((mock) => Boolean(mock));
   } catch (err) {
     console.error(chalk.red(err));
     return [];

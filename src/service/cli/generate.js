@@ -13,7 +13,7 @@ const DEFAULT_COUNT = 1;
 const DATE_RANGE = 90 * 24 * 60 * 60 * 1000; // ~ 3 месяца
 
 const generatePost = ({ titles, sentences, categories }) => ({
-  title: titles[getRandomInt(0, titles.length)],
+  title: titles[getRandomInt(0, titles.length - 1)],
   createdDate: getRandomDate(DATE_RANGE),
   announce: shuffle(sentences).slice(0, getRandomInt(1, 5)),
   fullText: shuffle(sentences).slice(0, getRandomInt(1, sentences.length)),
