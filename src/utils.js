@@ -1,3 +1,7 @@
+const fs = require(`fs`);
+const { resolve } = require(`path`);
+const chalk = require('chalk');
+
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -14,8 +18,30 @@ const shuffle = (someArray) => {
   return someArray;
 };
 
+const getRandomDate = (range) => {
+  const endTimestamp = Date.now();
+  const startTimestamp = Date.now() - range;
+
+  return new Date(getRandomInt(startTimestamp, endTimestamp));
+};
+
+const readMocks = async (filename) => {
+  try {
+    const mocks = await fs.promises.readFile(resolve(filename), 'utf8');
+    return mocks
+      .split('\n')
+      .map((mock) => mock.trim())
+      .filter((mock) => Boolean(mock));
+  } catch (err) {
+    console.error(chalk.red(err));
+    return [];
+  }
+}
+
 
 module.exports = {
   getRandomInt,
   shuffle,
+  readMocks,
+  getRandomDate,
 };

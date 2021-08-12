@@ -12,7 +12,7 @@ const message = `Программа запускает http-сервер и фо
 
 module.exports = {
   name: `--help`,
-  run() {
+  async run() {
     console.info(chalk.gray(message));
   }
 };
