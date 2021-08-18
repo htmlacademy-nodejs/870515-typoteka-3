@@ -1,13 +1,12 @@
 const fs = require('fs');
 
 class Logger {
-  config = {
-    path: '.',
-    logPrefix: 'error',
-  };
-  logDate;
-
   constructor({ path }) {
+    this.config = {
+      path: '.',
+      logPrefix: 'error',
+    };
+
     if (path) {
       this.config.path = path;
     }

@@ -3,6 +3,8 @@ const fs = require(`fs`);
 const { HttpStatus } = require('../../constants');
 
 const DEFAULT_PORT = 3000;
+const HOST = 'localhost';
+const SCHEME = 'http';
 
 const getMocks = async () => {
   const posts = await fs.promises.readFile('./mocks.json', 'utf-8');
@@ -52,7 +54,7 @@ module.exports = {
     });
 
     server.listen(port, () => {
-      console.info(`Принимаю подключения на ${port}`);
+      console.info(`Принимаю подключения на ${SCHEME}://${HOST}:${port}`);
     });
   }
 };
