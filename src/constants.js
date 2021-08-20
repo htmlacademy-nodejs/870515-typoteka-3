@@ -5,4 +5,8 @@ module.exports = {
     success: 0,
     failure: 1,
   },
+  HttpStatus: {
+    success: 200,
+    notFound: 404,
+  }
 };
