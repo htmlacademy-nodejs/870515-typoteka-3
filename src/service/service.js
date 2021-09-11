@@ -1,15 +1,15 @@
 'use strict';
 
 const {Cli} = require(`./cli`);
-const { Logger } = require(`./logger`);
+const {Logger} = require(`./logger`);
 const {
   DEFAULT_COMMAND,
   USER_ARGV_INDEX,
   ExitCode
 } = require(`../constants`);
-const chalk = require('chalk');
+const chalk = require(`chalk`);
 
-const logger = new Logger({ path: './logs'});
+const logger = new Logger({path: `./logs`});
 const userArguments = process.argv.slice(USER_ARGV_INDEX);
 const [userCommand] = userArguments;
 

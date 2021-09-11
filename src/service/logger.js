@@ -1,10 +1,12 @@
-const fs = require('fs');
+'use strict';
+
+const fs = require(`fs`);
 
 class Logger {
-  constructor({ path }) {
+  constructor({path}) {
     this.config = {
-      path: '.',
-      logPrefix: 'error',
+      path: `.`,
+      logPrefix: `error`,
     };
 
     if (path) {
@@ -29,4 +31,4 @@ class Logger {
 
 module.exports = {
   Logger,
-}
+};
