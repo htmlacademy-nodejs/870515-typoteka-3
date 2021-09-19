@@ -1,21 +1,23 @@
+'use strict';
+
 const http = require(`http`);
 const fs = require(`fs`);
-const { HttpStatus } = require('../../constants');
+const {HttpStatus} = require(`../../constants`);
 
 const DEFAULT_PORT = 3000;
-const HOST = 'localhost';
-const SCHEME = 'http';
+const HOST = `localhost`;
+const SCHEME = `http`;
 
 const getMocks = async () => {
-  const posts = await fs.promises.readFile('./mocks.json', 'utf-8');
+  const posts = await fs.promises.readFile(`./mocks.json`, `utf-8`);
   return JSON.parse(posts);
-}
+};
 
 const renderPosts = (posts) => {
   return `<ul>
-    ${posts.map((post) => `<li>${post.title}</li>`).join('')}
- </ul>`
-}
+    ${posts.map((post) => `<li>${post.title}</li>`).join(``)}
+ </ul>`;
+};
 
 const renderPage = (content) => {
   return `<html lang="ru">
@@ -24,8 +26,8 @@ const renderPage = (content) => {
     </head>
     <body>${content}</body>
   </html>
-  `
-}
+  `;
+};
 
 module.exports = {
   name: `--server`,
@@ -37,7 +39,7 @@ module.exports = {
       let posts;
 
       try {
-        posts = await getMocks()
+        posts = await getMocks();
         const content = renderPosts(posts);
 
         response.writeHead(HttpStatus.success, {

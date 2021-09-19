@@ -1,6 +1,8 @@
+'use strict';
+
 const fs = require(`fs`);
-const { resolve } = require(`path`);
-const chalk = require('chalk');
+const {resolve} = require(`path`);
+const chalk = require(`chalk`);
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
@@ -27,16 +29,16 @@ const getRandomDate = (range) => {
 
 const readMocks = async (filename) => {
   try {
-    const mocks = await fs.promises.readFile(resolve(filename), 'utf8');
+    const mocks = await fs.promises.readFile(resolve(filename), `utf8`);
     return mocks
-      .split('\n')
+      .split(`\n`)
       .map((mock) => mock.trim())
       .filter((mock) => Boolean(mock));
   } catch (err) {
     console.error(chalk.red(err));
     return [];
   }
-}
+};
 
 
 module.exports = {

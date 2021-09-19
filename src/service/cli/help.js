@@ -1,4 +1,6 @@
-const chalk = require('chalk');
+'use strict';
+
+const chalk = require(`chalk`);
 
 const message = `Программа запускает http-сервер и формирует файл с данными для API.
 

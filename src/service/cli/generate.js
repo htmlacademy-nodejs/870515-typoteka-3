@@ -1,5 +1,7 @@
+'use strict';
+
 const fs = require(`fs`);
-const chalk = require('chalk');
+const chalk = require(`chalk`);
 
 const {getRandomInt, shuffle, readMocks, getRandomDate} = require(`../../utils`);
 
@@ -12,7 +14,7 @@ const MAX_COUNT = 1000;
 const DEFAULT_COUNT = 1;
 const DATE_RANGE = 90 * 24 * 60 * 60 * 1000; // ~ 3 месяца
 
-const generatePost = ({ titles, sentences, categories }) => ({
+const generatePost = ({titles, sentences, categories}) => ({
   title: titles[getRandomInt(0, titles.length - 1)],
   createdDate: getRandomDate(DATE_RANGE),
   announce: shuffle(sentences).slice(0, getRandomInt(1, 5)),
@@ -35,7 +37,7 @@ module.exports = {
       throw new Error(`Не больше 1000 публикаций`);
     }
 
-    const content = JSON.stringify(generatePosts(postsCount, { titles, sentences, categories }));
+    const content = JSON.stringify(generatePosts(postsCount, {titles, sentences, categories}));
 
     try {
       await fs.promises.writeFile(FILE_NAME, content);
