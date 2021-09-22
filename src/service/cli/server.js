@@ -18,7 +18,7 @@ module.exports = {
     const port = Number.parseInt(customPort, 10) || DEFAULT_PORT;
     const app = express();
 
-    app.use(express.json());
+    app.use(express.json({limit: `10kb`}));
 
     app.get(`/posts`, async (request, response) => {
       let posts;
