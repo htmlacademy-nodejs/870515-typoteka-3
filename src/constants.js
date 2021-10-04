@@ -10,5 +10,7 @@ module.exports = {
   HttpStatus: {
     success: 200,
     notFound: 404,
-  }
+  },
+  MAX_ID_LENGTH: 6,
+  MAX_COMMENTS: 4,
 };
