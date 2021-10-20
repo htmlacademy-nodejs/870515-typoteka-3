@@ -1,6 +1,6 @@
 'use strict';
 
-const { ArticleService, CategoryService, SearchService } = require(`../data-service`);
+const {ArticleService, CategoryService, SearchService} = require(`../data-service`);
 const article = require(`./article`);
 const category = require(`./category`);
 const search = require(`./search`);

@@ -31,7 +31,7 @@ module.exports = (app, service) => {
     if (!article) {
       res
         .status(HttpStatus.notFound)
-        .send(`Not found`)
+        .send(`Not found`);
     }
 
     res

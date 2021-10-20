@@ -1,3 +1,5 @@
+'use strict';
+
 class SearchService {
   constructor(articles) {
     this._articles = articles;
@@ -5,6 +7,7 @@ class SearchService {
 
   search(query) {
     // TODO: search
+    console.log(query);
     return this._articles;
   }
 }

@@ -11,7 +11,7 @@ const route = new Router();
 module.exports = (app, service) => {
   app.use(`/search`, route);
 
-  route.get(`/`, async ({ query }, res) => {
+  route.get(`/`, async ({query}, res) => {
     res
       .status(HttpStatus.ok)
       .json(service.search(query.query ? query.query : ``));
