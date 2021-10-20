@@ -1,7 +1,9 @@
 'use strict';
 
-const { ArticleService } = require(`../data-service`);
+const { ArticleService, CategoryService, SearchService } = require(`../data-service`);
 const article = require(`./article`);
+const category = require(`./category`);
+const search = require(`./search`);
 
 const {getMockData} = require(`../lib/get-mock-data`);
 const {Router} = require(`express`);
@@ -12,6 +14,8 @@ const app = new Router();
   const mockData = await getMockData();
 
   article(app, new ArticleService(mockData));
+  category(app, new CategoryService(mockData));
+  search(app, new SearchService(mockData));
 })();
 
 module.exports = app;

@@ -30,8 +30,8 @@ const generatePost = ({titles, sentences, categories, comments}) => ({
   id: nanoid(MAX_ID_LENGTH),
   title: titles[getRandomInt(0, titles.length - 1)],
   createdDate: getRandomDate(DATE_RANGE),
-  announce: shuffle(sentences).slice(0, getRandomInt(1, 5)),
-  fullText: shuffle(sentences).slice(0, getRandomInt(1, sentences.length)),
+  announce: shuffle(sentences).slice(0, getRandomInt(1, 5)).join(``),
+  fullText: shuffle(sentences).slice(0, getRandomInt(1, sentences.length)).join(``),
   category: shuffle(categories).slice(0, getRandomInt(1, categories.length)),
   comments: generateComments(getRandomInt(1, MAX_COMMENTS), comments),
 });

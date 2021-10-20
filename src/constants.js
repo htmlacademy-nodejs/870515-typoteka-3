@@ -9,6 +9,7 @@ module.exports = {
   },
   HttpStatus: {
     ok: 200,
+    created: 201,
     notFound: 404,
   },
   MAX_ID_LENGTH: 6,
