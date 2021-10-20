@@ -1,15 +1,10 @@
 'use strict';
 
 const express = require(`express`);
-const fs = require(`fs`);
 const {HttpStatus} = require(`../../constants`);
+const {getMockData} = require(`../lib/get-mock-data`);
 
 const DEFAULT_PORT = 3000;
-
-const getMocks = async () => {
-  const posts = await fs.promises.readFile(`./mocks.json`, `utf-8`);
-  return JSON.parse(posts);
-};
 
 module.exports = {
   name: `--server`,
@@ -24,7 +19,7 @@ module.exports = {
       let posts;
 
       try {
-        posts = await getMocks();
+        posts = await getMockData();
 
         response.send(posts);
       } catch (error) {
