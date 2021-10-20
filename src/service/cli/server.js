@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require(`express`);
-const {HttpStatus} = require(`../../constants`);
-const {getMockData} = require(`../lib/get-mock-data`);
+const {HttpStatus, API_PREFIX} = require(`../../constants`);
+const routes = require('../api');
 
 const DEFAULT_PORT = 3000;
 
@@ -14,20 +14,7 @@ module.exports = {
     const app = express();
 
     app.use(express.json({limit: `10kb`}));
-
-    app.get(`/posts`, async (request, response) => {
-      let posts;
-
-      try {
-        posts = await getMockData();
-
-        response.send(posts);
-      } catch (error) {
-        response
-          .status(HttpStatus.notFound)
-          .send(`Not found`);
-      }
-    });
+    app.use(API_PREFIX, routes)
 
     app.use((req, res) => res
       .status(HttpStatus.notFound)

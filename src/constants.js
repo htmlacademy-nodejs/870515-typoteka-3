@@ -8,9 +8,10 @@ module.exports = {
     failure: 1,
   },
   HttpStatus: {
-    success: 200,
+    ok: 200,
     notFound: 404,
   },
   MAX_ID_LENGTH: 6,
   MAX_COMMENTS: 4,
+  API_PREFIX: `/api`,
 };

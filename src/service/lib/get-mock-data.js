@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require(`fs`).promises;
 const FILENAME = `mocks.json`;
 let data = [];
@@ -20,4 +22,4 @@ const getMockData = async () => {
 
 module.exports = {
   getMockData,
-}
+};
