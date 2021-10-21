@@ -6,9 +6,7 @@ class SearchService {
   }
 
   search(query) {
-    // TODO: search
-    console.log(query);
-    return this._articles;
+    return this._articles.filter((article) => article.title.indexOf(query) !== -1);
   }
 }
 

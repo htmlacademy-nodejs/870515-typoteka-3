@@ -11,6 +11,7 @@ module.exports = {
     ok: 200,
     created: 201,
     notFound: 404,
+    badRequest: 400,
   },
   MAX_ID_LENGTH: 6,
   MAX_COMMENTS: 4,
