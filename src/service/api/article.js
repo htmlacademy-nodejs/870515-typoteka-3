@@ -2,6 +2,7 @@
 
 const {Router} = require(`express`);
 const {HttpStatus} = require(`../../constants`);
+const articleValidator = require(`../middleware/article-validator`);
 
 const route = new Router();
 
@@ -18,13 +19,13 @@ const route = new Router();
 module.exports = (app, service) => {
   app.use(`/articles`, route);
 
-  route.get(`/`, async (req, res) => {
+  route.get(`/`, (req, res) => {
     res
       .status(HttpStatus.ok)
       .json(service.findAll());
   });
 
-  route.get(`/:articleId`, async (req, res) => {
+  route.get(`/:articleId`, (req, res) => {
     const {articleId} = req.params;
     const article = service.findOne(articleId);
 
@@ -39,7 +40,7 @@ module.exports = (app, service) => {
       .json(article);
   });
 
-  route.post(`/`, async (req, res) => {
+  route.post(`/`, articleValidator, (req, res) => {
     const newArticle = service.create(req.body);
 
     res
