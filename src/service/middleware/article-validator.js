@@ -1,6 +1,6 @@
 const {HttpStatus} = require(`../../constants`);
 
-const requiredKeys = [`title`, `announce`];
+const requiredKeys = [`title`, `announce`, `fullText`, `category`];
 
 module.exports = (req, res, next) => {
   const newArticle = req.body;
