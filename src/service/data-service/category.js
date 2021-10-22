@@ -6,8 +6,12 @@ class CategoryService {
   }
 
   findAll() {
-    // TODO: all categories
-    return this._articles;
+    const categories = this._articles.reduce((acc, article) => {
+      article.category.forEach((category) => acc.add(category));
+      return acc;
+    }, new Set());
+
+    return [...categories];
   }
 }
 
