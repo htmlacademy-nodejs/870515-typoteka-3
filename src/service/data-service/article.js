@@ -20,6 +20,13 @@ class ArticleService {
     return newArticle;
   }
 
+  update(id, article) {
+    const oldArticle = this._articles
+      .find((item) => item.id === id);
+
+    return Object.assign(oldArticle, article);
+  }
+
   findAll() {
     return this._articles;
   }

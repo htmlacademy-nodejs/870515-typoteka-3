@@ -3,6 +3,7 @@
 const {Router} = require(`express`);
 const {HttpStatus} = require(`../../constants`);
 const articleValidator = require(`../middleware/article-validator`);
+const articleExistValidator = require(`../middleware/article-exist-validator`);
 
 const route = new Router();
 
@@ -43,5 +44,13 @@ module.exports = (app, service) => {
     res
       .status(HttpStatus.created)
       .json(service.create(newArticle));
+  });
+
+  route.put(`/:articleId`, articleExistValidator(service), articleValidator, (req, res) => {
+    const article = service.update(req.params.articleId, req.body);
+
+    res
+      .status(HttpStatus.ok)
+      .json(service.create(article));
   });
 };
