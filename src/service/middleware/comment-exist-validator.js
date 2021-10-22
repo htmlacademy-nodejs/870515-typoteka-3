@@ -13,7 +13,7 @@ module.exports = (service) => (req, res, next) => {
   }
 
   // TODO: когда пойдём в базу, эта проверка станет проще
-  const comment = article.comments.find((comment) => comment.id === req.params.commentId);
+  const comment = article.comments.find(({id}) => id === req.params.commentId);
 
   if (!comment) {
     res
