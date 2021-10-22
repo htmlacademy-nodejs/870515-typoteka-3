@@ -8,6 +8,14 @@ class ArticleService {
     this._articles = articles;
   }
 
+  findAll() {
+    return this._articles;
+  }
+
+  findOne(id) {
+    return this._articles.find((article) => id === article.id);
+  }
+
   create(article) {
     const newArticle = Object.assign({
       id: nanoid(MAX_ID_LENGTH),
@@ -27,12 +35,16 @@ class ArticleService {
     return Object.assign(oldArticle, article);
   }
 
-  findAll() {
-    return this._articles;
-  }
+  drop(id) {
+    const article = this._articles.find((item) => item.id === id);
 
-  findOne(id) {
-    return this._articles.find((article) => id === article.id);
+    if (!article) {
+      return null;
+    }
+
+    this._articles = this._articles.filter((item) => item.id !== id);
+
+    return article;
   }
 }
 

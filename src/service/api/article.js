@@ -8,8 +8,6 @@ const articleExistValidator = require(`../middleware/article-exist-validator`);
 const route = new Router();
 
 // TODO:
-// [ ] - PUT /api/articles/:articleId — редактирует определённую публикацию;
-// [ ] - DELETE /api/articles/:articleId — удаляет определённую публикацию;
 // [ ] - GET /api/articles/:articleId/comments — возвращает список комментариев определённой публикации;
 // [ ] - DELETE /api/articles/:articleId/comments/:commentId — удаляет из определённой публикации комментарий с идентификатором;
 // [ ] - POST /api/articles/:articleId/comments — создаёт новый комментарий;
@@ -43,7 +41,7 @@ module.exports = (app, service) => {
 
     res
       .status(HttpStatus.created)
-      .json(service.create(newArticle));
+      .json(newArticle);
   });
 
   route.put(`/:articleId`, articleExistValidator(service), articleValidator, (req, res) => {
@@ -51,6 +49,11 @@ module.exports = (app, service) => {
 
     res
       .status(HttpStatus.ok)
-      .json(service.create(article));
+      .json(article);
+  });
+
+  route.delete(`/:articleId`, articleExistValidator(service), (req, res) => {
+    service.drop(req.params.articleId);
+    res.status(HttpStatus.noContent).end();
   });
 };
