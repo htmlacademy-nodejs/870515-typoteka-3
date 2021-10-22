@@ -3,27 +3,29 @@
 const {Router} = require(`express`);
 const {HttpStatus} = require(`../../constants`);
 const articleValidator = require(`../middleware/article-validator`);
+const commentValidator = require(`../middleware/comment-validator`);
 const articleExistValidator = require(`../middleware/article-exist-validator`);
+const commentExistValidator = require(`../middleware/comment-exist-validator`);
 
 const route = new Router();
 
-// TODO:
-// [ ] - GET /api/articles/:articleId/comments — возвращает список комментариев определённой публикации;
-// [ ] - DELETE /api/articles/:articleId/comments/:commentId — удаляет из определённой публикации комментарий с идентификатором;
-// [ ] - POST /api/articles/:articleId/comments — создаёт новый комментарий;
+// Вопросы по роутам:
+// 1. Нельзя ли роуты с комментариями вынести в отдельный модуль ?
+// Я попробовал, но express не позволяет использовать динамические параметры в
+// блоке `use`. Например: app.use(`/articles/:articleId/comments`, route);
 
-module.exports = (app, service) => {
+module.exports = (app, articleService, commentService) => {
   app.use(`/articles`, route);
 
   route.get(`/`, (req, res) => {
     res
       .status(HttpStatus.ok)
-      .json(service.findAll());
+      .json(articleService.findAll());
   });
 
   route.get(`/:articleId`, (req, res) => {
     const {articleId} = req.params;
-    const article = service.findOne(articleId);
+    const article = articleService.findOne(articleId);
 
     if (!article) {
       res
@@ -37,23 +39,47 @@ module.exports = (app, service) => {
   });
 
   route.post(`/`, articleValidator, (req, res) => {
-    const newArticle = service.create(req.body);
+    const newArticle = articleService.create(req.body);
 
     res
       .status(HttpStatus.created)
       .json(newArticle);
   });
 
-  route.put(`/:articleId`, articleExistValidator(service), articleValidator, (req, res) => {
-    const article = service.update(req.params.articleId, req.body);
+  route.put(`/:articleId`, articleExistValidator(articleService), articleValidator, (req, res) => {
+    const article = articleService.update(req.params.articleId, req.body);
 
     res
       .status(HttpStatus.ok)
       .json(article);
   });
 
-  route.delete(`/:articleId`, articleExistValidator(service), (req, res) => {
-    service.drop(req.params.articleId);
+  route.delete(`/:articleId`, articleExistValidator(articleService), (req, res) => {
+    articleService.drop(req.params.articleId);
+    res.status(HttpStatus.noContent).end();
+  });
+
+  route.get(`/:articleId/comments`, articleExistValidator(articleService), (req, res) => {
+    const {article} = res.locals;
+
+    res
+      .status(HttpStatus.ok)
+      .json(article.comments);
+  });
+
+  route.post(`/:articleId/comments`, articleExistValidator(articleService), commentValidator, (req, res) => {
+    const {article} = res.locals;
+    const comment = commentService.create(article, req.body);
+
+    res
+      .status(HttpStatus.created)
+      .json(comment);
+  });
+
+  route.delete(`/:articleId/comments/:commentId`, commentExistValidator(articleService), (req, res) => {
+    const {article} = res.locals;
+    commentService.drop(article, req.params.commentId);
+
     res.status(HttpStatus.noContent).end();
   });
 };
