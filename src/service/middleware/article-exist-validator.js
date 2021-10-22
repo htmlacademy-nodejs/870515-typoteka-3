@@ -1,3 +1,5 @@
+'use strict';
+
 const {HttpStatus} = require(`../../constants`);
 
 module.exports = (service) => (req, res, next) => {

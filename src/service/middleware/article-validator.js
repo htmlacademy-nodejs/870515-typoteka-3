@@ -1,3 +1,5 @@
+'use strict';
+
 const {HttpStatus} = require(`../../constants`);
 
 const requiredKeys = [`title`, `announce`, `fullText`, `category`];
