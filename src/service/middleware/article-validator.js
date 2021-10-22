@@ -10,10 +10,10 @@ module.exports = (req, res, next) => {
   const keysExists = requiredKeys.every((key) => keys.includes(key));
 
   if (!keysExists) {
-    res
+    return res
       .status(HttpStatus.badRequest)
       .send(`Bad request`);
   }
 
-  next();
+  return next();
 };

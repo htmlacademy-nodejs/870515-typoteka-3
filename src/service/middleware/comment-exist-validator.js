@@ -7,7 +7,7 @@ module.exports = (service) => (req, res, next) => {
   const article = service.findOne(req.params.articleId);
 
   if (!article) {
-    res
+    return res
       .status(HttpStatus.notFound)
       .send(`Not found`);
   }
@@ -16,12 +16,12 @@ module.exports = (service) => (req, res, next) => {
   const comment = article.comments.find(({id}) => id === req.params.commentId);
 
   if (!comment) {
-    res
+    return res
       .status(HttpStatus.notFound)
       .send(`Not found`);
   }
 
   res.locals.article = article;
   res.locals.comment = comment;
-  next();
+  return next();
 };
