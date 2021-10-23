@@ -18,7 +18,7 @@ module.exports = (app, articleService, commentService) => {
   app.use(`/articles`, route);
 
   route.get(`/`, (req, res) => {
-    res
+    return res
       .status(HttpStatus.ok)
       .json(articleService.findAll());
   });
