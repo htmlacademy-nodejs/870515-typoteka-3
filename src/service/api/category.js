@@ -9,7 +9,7 @@ module.exports = (app, service) => {
   app.use(`/categories`, route);
 
   route.get(`/`, async (req, res) => {
-    res
+    return res
       .status(HttpStatus.ok)
       .json(service.findAll());
   });

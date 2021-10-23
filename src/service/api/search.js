@@ -13,12 +13,12 @@ module.exports = (app, service) => {
     const articles = service.search(query.query);
 
     if (articles.length === 0) {
-      res
+      return res
         .status(HttpStatus.notFound)
         .send(`Not found`);
     }
 
-    res
+    return res
       .status(HttpStatus.ok)
       .json(articles);
   });

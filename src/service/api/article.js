@@ -28,12 +28,12 @@ module.exports = (app, articleService, commentService) => {
     const article = articleService.findOne(articleId);
 
     if (!article) {
-      res
+      return res
         .status(HttpStatus.notFound)
         .send(`Not found`);
     }
 
-    res
+    return res
       .status(HttpStatus.ok)
       .json(article);
   });
@@ -41,7 +41,7 @@ module.exports = (app, articleService, commentService) => {
   route.post(`/`, articleValidator, (req, res) => {
     const newArticle = articleService.create(req.body);
 
-    res
+    return res
       .status(HttpStatus.created)
       .json(newArticle);
   });
@@ -49,20 +49,20 @@ module.exports = (app, articleService, commentService) => {
   route.put(`/:articleId`, articleExistValidator(articleService), articleValidator, (req, res) => {
     const article = articleService.update(req.params.articleId, req.body);
 
-    res
+    return res
       .status(HttpStatus.ok)
       .json(article);
   });
 
   route.delete(`/:articleId`, articleExistValidator(articleService), (req, res) => {
     articleService.drop(req.params.articleId);
-    res.status(HttpStatus.noContent).end();
+    return res.status(HttpStatus.noContent).end();
   });
 
   route.get(`/:articleId/comments`, articleExistValidator(articleService), (req, res) => {
     const {article} = res.locals;
 
-    res
+    return res
       .status(HttpStatus.ok)
       .json(article.comments);
   });
@@ -71,7 +71,7 @@ module.exports = (app, articleService, commentService) => {
     const {article} = res.locals;
     const comment = commentService.create(article, req.body);
 
-    res
+    return res
       .status(HttpStatus.created)
       .json(comment);
   });
@@ -80,6 +80,6 @@ module.exports = (app, articleService, commentService) => {
     const {article} = res.locals;
     commentService.drop(article, req.params.commentId);
 
-    res.status(HttpStatus.noContent).end();
+    return res.status(HttpStatus.noContent).end();
   });
 };
