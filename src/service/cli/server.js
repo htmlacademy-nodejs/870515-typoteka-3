@@ -1,15 +1,10 @@
 'use strict';
 
 const express = require(`express`);
-const fs = require(`fs`);
-const {HttpStatus} = require(`../../constants`);
+const {HttpStatus, API_PREFIX} = require(`../../constants`);
+const routes = require(`../api`);
 
 const DEFAULT_PORT = 3000;
-
-const getMocks = async () => {
-  const posts = await fs.promises.readFile(`./mocks.json`, `utf-8`);
-  return JSON.parse(posts);
-};
 
 module.exports = {
   name: `--server`,
@@ -19,20 +14,7 @@ module.exports = {
     const app = express();
 
     app.use(express.json({limit: `10kb`}));
-
-    app.get(`/posts`, async (request, response) => {
-      let posts;
-
-      try {
-        posts = await getMocks();
-
-        response.send(posts);
-      } catch (error) {
-        response
-          .status(HttpStatus.notFound)
-          .send(`Not found`);
-      }
-    });
+    app.use(API_PREFIX, routes);
 
     app.use((req, res) => res
       .status(HttpStatus.notFound)

@@ -8,7 +8,13 @@ module.exports = {
     failure: 1,
   },
   HttpStatus: {
-    success: 200,
+    ok: 200,
+    created: 201,
+    noContent: 204,
     notFound: 404,
-  }
+    badRequest: 400,
+  },
+  MAX_ID_LENGTH: 6,
+  MAX_COMMENTS: 4,
+  API_PREFIX: `/api`,
 };
