@@ -70,14 +70,19 @@ const mockData = [{
   }],
 }];
 
-const app = express();
-app.use(express.json);
-search(app, new SearchService(mockData));
+const createAPI = async () => {
+  const app = express();
+  app.use(express.json());
+  search(app, new SearchService(mockData));
+
+  return app;
+};
 
 describe(`API returns offer based on search query`, () => {
   let response;
 
   beforeAll(async () => {
+    const app = await createAPI();
     response = await request(app)
       .get(`/search`)
       .query({query: `Рок — это протест`});
@@ -85,5 +90,5 @@ describe(`API returns offer based on search query`, () => {
 
   test(`Status code 200`, () => expect(response.statusCode).toBe(HttpStatus.ok));
   test(`1 offer found`, () => expect(response.body.length).toBe(1));
-  test(`Offer has correct id`, () => expect(response.body[0].id).toBe(`Fg0ikD`));
+  test(`Offer has correct id`, () => expect(response.body[0].id).toBe(`r0pE43`));
 });
