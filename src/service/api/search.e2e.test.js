@@ -92,3 +92,21 @@ describe(`API returns offer based on search query`, () => {
   test(`1 offer found`, () => expect(response.body.length).toBe(1));
   test(`Offer has correct id`, () => expect(response.body[0].id).toBe(`r0pE43`));
 });
+
+
+test(`API returns code 404 if nothing is found`, async () => {
+  const app = await createAPI();
+
+  return request(app)
+    .get(`/search`)
+    .query({query: `Это должно быть не найдено`})
+    .expect(HttpStatus.notFound);
+});
+
+test(`API returns code 400 when query string is absent`, async () => {
+  const app = await createAPI();
+
+  return request(app)
+    .get(`/search`)
+    .expect(HttpStatus.badRequest);
+});
