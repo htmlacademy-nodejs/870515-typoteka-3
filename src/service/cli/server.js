@@ -16,15 +16,6 @@ module.exports = {
     const app = express();
 
     app.use(express.json({limit: `10kb`}));
-    app.use(API_PREFIX, routes);
-
-    app.use((req, res) => {
-      res
-        .status(HttpStatus.notFound)
-        .send(`Not found`);
-
-      logger.error(`Route not found: ${req.url}`);
-    });
 
     app.use((err, _req, _res, _next) => {
       logger.error(`An error occurred on processing request: ${err.message}`);
@@ -36,6 +27,17 @@ module.exports = {
         logger.info(`Response status code ${res.statusCode}`);
       });
       next();
+    });
+
+
+    app.use(API_PREFIX, routes);
+
+    app.use((req, res) => {
+      res
+        .status(HttpStatus.notFound)
+        .send(`Not found`);
+
+      logger.error(`Route not found: ${req.url}`);
     });
 
     try {
