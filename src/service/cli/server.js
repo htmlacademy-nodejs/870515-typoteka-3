@@ -1,9 +1,11 @@
 'use strict';
 
 const express = require(`express`);
-const {HttpStatus, API_PREFIX} = require(`../../constants`);
+const {HttpStatus, API_PREFIX, ExitCode} = require(`../../constants`);
+const {getLogger} = require(`../lib/logger`);
 const routes = require(`../api`);
 
+const logger = getLogger({name: `api`});
 const DEFAULT_PORT = 3000;
 
 module.exports = {
@@ -16,12 +18,37 @@ module.exports = {
     app.use(express.json({limit: `10kb`}));
     app.use(API_PREFIX, routes);
 
-    app.use((req, res) => res
-      .status(HttpStatus.notFound)
-      .send(`Not found`));
+    app.use((req, res) => {
+      res
+        .status(HttpStatus.notFound)
+        .send(`Not found`);
 
-    app.listen(port, () => {
-      console.log(`Server was started http://localhost:${port}`);
+      logger.error(`Route not found: ${req.url}`);
     });
+
+    app.use((err, _req, _res, _next) => {
+      logger.error(`An error occurred on processing request: ${err.message}`);
+    });
+
+    app.use((req, res, next) => {
+      logger.debug(`Request on route ${req.url}`);
+      res.on(`finish`, () => {
+        logger.info(`Response status code ${res.statusCode}`);
+      });
+      next();
+    });
+
+    try {
+      app.listen(port, (err) => {
+        if (err) {
+          return logger.error(`An error occurred on server creation: ${err.message}`);
+        }
+
+        return logger.info(`Listening to connections on http://localhost:${port}`);
+      });
+    } catch (err) {
+      logger.error(`An error occurred: ${err.message}`);
+      process.exit(ExitCode.failure);
+    }
   }
 };
