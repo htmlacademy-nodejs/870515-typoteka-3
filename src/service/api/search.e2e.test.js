@@ -1,5 +1,6 @@
 'use strict';
 
+const {test, beforeAll, describe, expect} = require(`@jest/globals`);
 const express = require(`express`);
 const request = require(`supertest`);
 

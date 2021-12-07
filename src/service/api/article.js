@@ -7,11 +7,6 @@ const commentValidator = require(`../middleware/comment-validator`);
 const articleExistValidator = require(`../middleware/article-exist-validator`);
 const commentExistValidator = require(`../middleware/comment-exist-validator`);
 
-// Вопросы по роутам:
-// 1. Нельзя ли роуты с комментариями вынести в отдельный модуль ?
-// Я попробовал, но express не позволяет использовать динамические параметры в
-// блоке `use`. Например: app.use(`/articles/:articleId/comments`, route);
-
 module.exports = (app, articleService, commentService) => {
   const route = new Router();
 
