@@ -17,4 +17,8 @@ module.exports = {
   MAX_ID_LENGTH: 6,
   MAX_COMMENTS: 4,
   API_PREFIX: `/api`,
+  Env: {
+    development: `development`,
+    production: `production`
+  }
 };

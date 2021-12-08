@@ -2,6 +2,10 @@
 
 const fs = require(`fs`).promises;
 const FILENAME = `mocks.json`;
+const {getLogger} = require(`../lib/logger`);
+const chalk = require(`chalk`);
+const logger = getLogger({name: `console`});
+
 let data = [];
 
 const getMockData = async () => {
@@ -13,7 +17,7 @@ const getMockData = async () => {
     const fileContent = await fs.readFile(FILENAME);
     data = JSON.parse(fileContent);
   } catch (err) {
-    console.log(err);
+    logger.error(chalk.red(err));
     return (err);
   }
 

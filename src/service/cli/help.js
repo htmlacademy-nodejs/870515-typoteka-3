@@ -1,6 +1,8 @@
 'use strict';
 
 const chalk = require(`chalk`);
+const {getLogger} = require(`../lib/logger`);
+const logger = getLogger({name: `console`});
 
 const message = `Программа запускает http-сервер и формирует файл с данными для API.
 
@@ -15,6 +17,6 @@ const message = `Программа запускает http-сервер и фо
 module.exports = {
   name: `--help`,
   async run() {
-    console.info(chalk.gray(message));
+    logger.info(chalk.gray(message));
   }
 };

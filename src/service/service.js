@@ -1,7 +1,8 @@
 'use strict';
 
 const {Cli} = require(`./cli`);
-const {Logger} = require(`./logger`);
+const {getLogger} = require(`./lib/logger`);
+const logger = getLogger({name: `console`});
 const {
   DEFAULT_COMMAND,
   USER_ARGV_INDEX,
@@ -9,7 +10,6 @@ const {
 } = require(`../constants`);
 const chalk = require(`chalk`);
 
-const logger = new Logger({path: `./logs`});
 const userArguments = process.argv.slice(USER_ARGV_INDEX);
 const [userCommand] = userArguments;
 
@@ -26,7 +26,6 @@ if (!userCommand || userArguments.length === 0 || !Cli[userCommand]) {
 
 Cli[commandToRun].run(commandArgs)
   .catch((error) => {
-    logger.log(error.stack);
-    console.log(chalk.red(`${error.message}\nlog file: ${logger.getLogFileName()}`));
+    logger.error(chalk.red(error));
     process.exit(ExitCode.failure);
   });

@@ -4,9 +4,9 @@ const {Router} = require(`express`);
 const {HttpStatus} = require(`../../constants`);
 const searchValidator = require(`../middleware/search-validator`);
 
-const route = new Router();
-
 module.exports = (app, service) => {
+  const route = new Router();
+
   app.use(`/search`, route);
 
   route.get(`/`, searchValidator, ({query}, res) => {

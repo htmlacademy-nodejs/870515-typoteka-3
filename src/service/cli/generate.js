@@ -5,7 +5,9 @@ const chalk = require(`chalk`);
 const {nanoid} = require(`nanoid`);
 
 const {getRandomInt, shuffle, readMocks, getRandomDate} = require(`../../utils`);
-const {MAX_ID_LENGTH, MAX_COMMENTS} = require(`../../constants`);
+const {MAX_ID_LENGTH, MAX_COMMENTS, ExitCode} = require(`../../constants`);
+const {getLogger} = require(`../lib/logger`);
+const logger = getLogger({name: `console`});
 
 const FILE_NAME = `mocks.json`;
 const TITLE_MOCKS_PATH = `src/data/titles.txt`;
@@ -56,10 +58,10 @@ module.exports = {
 
     try {
       await fs.promises.writeFile(FILE_NAME, content);
-      console.log(chalk.green(`Operation success. File created.`));
+      logger.info(chalk.green(`Operation success. File created.`));
     } catch (error) {
-      console.log(chalk.red(`Can't write data to file...`));
-      throw error;
+      logger.error(chalk.red(`Can't write data to file...`));
+      process.exit(ExitCode.failure);
     }
   }
 };
