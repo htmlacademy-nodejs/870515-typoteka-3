@@ -10,12 +10,12 @@ const targets = [
   {
     level: `error`,
     target: `pino/file`,
-    options: { destination: LOG_FILE }
+    options: {destination: LOG_FILE}
   },
 ];
 
 if (isDevMode) {
-  targets.push({target: `pino-pretty`, level: process.env.LOG_LEVEL || `info`,});
+  targets.push({target: `pino-pretty`, level: process.env.LOG_LEVEL || `info`});
 }
 
 const logger = pino({

@@ -61,7 +61,7 @@ module.exports = {
       logger.info(chalk.green(`Operation success. File created.`));
     } catch (error) {
       logger.error(chalk.red(`Can't write data to file...`));
-      process.exit(ExitCode.failure)
+      process.exit(ExitCode.failure);
     }
   }
 };
